@@ -12,9 +12,12 @@
         <li>{{pessoa.nome}}</li>
         <li>{{pessoa.email}}</li>
         <li>{{pessoa.idade}}</li>
-        <br><br>
-        {% endfor %}
-    </ul>
+        <a href="{% url 'deletar_pessoa' pessoa.id %}">Deletar</a><br>
 
+        <a href="{% url 'atualizar_pessoa' pessoa.id %}">Atualizar pessoa</a>
+        <br><br>
+    </ul>
+    {% endfor %}
+    <a href="{% url 'criar_pessoa' %}">Criar pessoa</a>
 </body>
 </html>

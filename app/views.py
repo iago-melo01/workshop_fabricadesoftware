@@ -19,9 +19,28 @@ def criar_pessoa(request):
     if request.method == 'POST':
         form = UsuarioForm(request.POST)
         if form.is_valid():
-            form.save
+            form.save()
             return redirect('listar_pessoas')
-    
     else:
         form = UsuarioForm()
+    return render(request, 'create.html', {'usuario': form})
+
+
+
+def deletar_usuario(request, pk):
+    usuario = Usuario.objects.get(pk=pk)
+    if request.method == 'POST':
+        usuario.delete()
+        return redirect('listar_pessoas')
+    return render(request, 'confirmar_delete.html', {'usuario': usuario})
+
+def atualizar_usuario(request, pk):
+    usuario = Usuario.objects.get(pk=pk)
+    if request.method == 'POST':
+        form = UsuarioForm(request.POST, instance=usuario)
+        if form.is_valid():
+            form.save()
+            return redirect('listar_pessoas')
+    else:
+        form = UsuarioForm(instance=usuario)
     return render(request, 'create.html', {'usuario': form})
